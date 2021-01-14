@@ -490,7 +490,9 @@ B_ball= Piece(matrix[7][1],"white",Bishop("white"))
 K_ball = Piece(matrix[7][2],"white",Knight("white"))
 Pwn_ball = Piece(matrix[6][3],"white",Pawn("white"))
 Q_ball = Piece(matrix[7][3],"white",Queen("white"))
-K_ball = Piece(matrix[7][4],"white",King("white"))
+King_ball = Piece(matrix[7][4],"white",King("white"))
+dark_knight = Piece(matrix[0][2],"dark",Knight("dark"))
+
 
 
 
@@ -525,9 +527,22 @@ while 1:
                     for square in line:
                         if whiteSquare.get_rect(center=square.center).collidepoint(mouse.mouse_position):
                             if not(square.piece == "free"):
-                                mouse.piece.square.visibility = True
-                                mouse.piece = "free"
-                                break
+                                if (square.piece.color == mouse.piece.color):
+                                    mouse.piece.square.visibility = True
+                                    mouse.piece = "free"
+                                    break
+                                else:
+                                    if legal_move(square,mouse.piece.type.legal_sq(mouse.piece.square,matrix)):
+                                        mouse.piece.square.visibility = True
+                                        mouse.piece.square.piece = "free"
+                                        mouse.piece.square = square
+                                        square.piece = mouse.piece
+                                        mouse.piece = "free"
+                                        break
+                                    else:
+                                        mouse.piece.square.visibility = True
+                                        mouse.piece = "free"
+                                        break
                             else:
                                 if legal_move(square,mouse.piece.type.legal_sq(mouse.piece.square,matrix)):
                                     mouse.piece.square.visibility = True
