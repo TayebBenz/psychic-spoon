@@ -67,28 +67,28 @@ class Rook:
         for line in range(orig_line+1,8):
             if matrix[line][orig_collum].piece == "free":
                 self.moves.append(matrix[line][orig_collum])
-            elif not(matrix[line][collum].piece.color == self.color):
+            elif not(matrix[line][orig_collum].piece.color == self.color):
                 self.moves.append(matrix[line][orig_collum])
             else:
                 break
         for line in range(orig_line-1,-1,-1):
             if matrix[line][orig_collum].piece == "free":
                 self.moves.append(matrix[line][orig_collum])
-            elif not(matrix[line][collum].piece.color == self.color):
+            elif not(matrix[line][orig_collum].piece.color == self.color):
                 self.moves.append(matrix[line][orig_collum])
             else:
                 break
         for collum in range(orig_collum+1,8):
             if matrix[orig_line][collum].piece == "free":
                 self.moves.append(matrix[orig_line][collum])
-            elif not(matrix[line][collum].piece.color == self.color):
+            elif not(matrix[orig_line][collum].piece.color == self.color):
                 self.moves.append(matrix[orig_line][collum])
             else:
                 break
         for collum in range(orig_collum-1,-1,-1):
             if matrix[orig_line][collum].piece == "free":
                 self.moves.append(matrix[orig_line][collum])
-            elif not(matrix[line][collum].piece.color == self.color):
+            elif not(matrix[orig_line][collum].piece.color == self.color):
                 self.moves.append(matrix[orig_line][orig_collum])
             else:
                 break
@@ -267,28 +267,30 @@ class Queen:
         for line in range(orig_line+1,8):
             if matrix[line][orig_collum].piece == "free":
                 self.moves.append(matrix[line][orig_collum])
-            elif not(matrix[line][collum].piece.color == self.color):
-                self.moves.append(matrix[line][collum])
+            elif not(matrix[line][orig_collum].piece.color == self.color):
+                self.moves.append(matrix[line][orig_collum])
             else:
                 break
         for line in range(orig_line-1,-1,-1):
             if matrix[line][orig_collum].piece == "free":
+                self.moves.append(matrix[line][orig_collum])
+            elif not(matrix[line][orig_collum].piece.color == self.color):
                 self.moves.append(matrix[line][orig_collum])
             else:
                 break
         for collum in range(orig_collum+1,8):
             if matrix[orig_line][collum].piece == "free":
                 self.moves.append(matrix[orig_line][collum])
-            elif not(matrix[line][collum].piece.color == self.color):
-                self.moves.append(matrix[line][collum])
+            elif not(matrix[orig_line][collum].piece.color == self.color):
+                self.moves.append(matrix[orig_line][collum])
             else:
                 break
 
         for collum in range(orig_collum-1,-1,-1):
             if matrix[orig_line][collum].piece == "free":
                 self.moves.append(matrix[orig_line][collum])
-            elif not(matrix[line][collum].piece.color == self.color):
-                self.moves.append(matrix[line][collum])
+            elif not(matrix[orig_line][collum].piece.color == self.color):
+                self.moves.append(matrix[orig_line][collum])
             else:
                 break
 
