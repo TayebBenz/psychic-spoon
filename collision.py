@@ -54,7 +54,11 @@ class Mouse:
 
 class Rook:
     points = 5
+    ame = "rook"
     moves = []
+
+    def __init__(self,color):
+        self.color = color
 
     def legal_sq(self,square,matrix):
         self.moves = []
@@ -80,7 +84,172 @@ class Rook:
                 self.moves.append(matrix[orig_line][collum])
             else:
                 break
+        return self.moves
 
+class Knight:
+    points = 3
+    name = "knight"
+    moves = []
+
+    def __init__(self,color):
+        self.color = color
+
+    def legal_sq(self,square,matrix):
+        self.moves =[]
+        self.moves = []
+        orig_line = square.line
+        orig_collum = square.collum
+
+        line = orig_line + 2
+        if line < 8:
+            collum = orig_collum+1
+            if collum < 8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+            collum = orig_collum-1
+            if collum > -1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+
+        line = orig_line - 2
+        if line < 8:
+            collum = orig_collum+1
+            if collum < 8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+            collum = orig_collum-1
+            if collum > -1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+
+        collum = orig_collum + 2
+        if collum < 8:
+            line = orig_line+1
+            if line < 8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+            line = orig_line-1
+            if line > -1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+
+        collum = orig_collum - 2
+        if collum < 8:
+            line = orig_line+1
+            if line < 8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+            line = orig_line-1
+            if line > -1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+        return self.moves
+
+
+class Pawn:
+    points = 1
+    name = "pawn"
+    first_move = True
+    moves = []
+
+    def __init__(self,color):
+        self.color = color
+
+    def legal_sq(self,square,matrix):
+        self.moves =[]
+        self.moves = []
+        orig_line = square.line
+        orig_collum = square.collum
+
+        if orig_line == 7 or orig_line == 0:
+            return self.moves
+
+        if self.first_move:
+            if self.color == "white":
+                for line in range(orig_line-1,orig_line-3,-1):
+
+                    self.moves.append(matrix[line][orig_collum])
+                    self.first_move = False
+            else:
+                for line in range(orig_line+1,orig_line+3):
+                    self.moves.append(matrix[line][orig_collum])
+                    self.first_move = False
+
+        if self.color == "white":
+            for line in range(orig_line-1,orig_line-2,-1):
+                self.moves.append(matrix[line][orig_collum])
+        else:
+            for line in range(orig_line+1,orig_line+2):
+                self.moves.append(matrix[line][orig_collum])
+
+        return self.moves
+
+class Bishop:
+    points = 3
+    name = "bishop"
+    moves = []
+
+    def __init__(self,color):
+        self.color = color
+
+    def legal_sq(self,square,matrix):
+        self.moves =[]
+        self.moves = []
+        orig_line = square.line
+        orig_collum = square.collum
+
+        for line,collum in zip(range(orig_line+1,8),range(orig_collum+1,8)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line+1,8),range(orig_collum-1,-1,-1)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line-1,-1,-1),range(orig_collum+1,8)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line-1,-1,-1),range(orig_collum-1,-1,-1)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+        #
+        #
+        # diog1 = True
+        # diog2 = True
+        # for line,collum1,collum2 in zip(range(orig_line+1,8),range(orig_collum+1,8),range(orig_collum-1,-1,-1)):
+        #     print(line," ",collum1," ",collum2)
+        #     if matrix[line][collum1].piece == "free" and diog1:
+        #         self.moves.append(matrix[line][collum1])
+        #     else:
+        #         diog1 = False
+        #     if matrix[line][collum2].piece == "free" and diog2:
+        #         self.moves.append(matrix[line][collum2])
+        #     else:
+        #         diog2 = False
+        #
+        #
+        # diog1 = True
+        # diog2 = True
+        # for line,collum1,collum2 in zip(range(orig_line-1,-1,-1),range(orig_collum-1,-1,-1),range(orig_collum+1,8)):
+        #     print(line," ",collum1," ",collum2)
+        #     if matrix[line][collum1].piece == "free" and diog1:
+        #         self.moves.append(matrix[line][collum1])
+        #     else:
+        #         diog1 = False
+        #
+        #     if matrix[line][collum2].piece == "free" and diog2:
+        #         self.moves.append(matrix[line][collum2])
+        #     else:
+        #         diog2 = False
 
         return self.moves
 
@@ -126,7 +295,10 @@ board = Board(matrix)
 
 mouse = Mouse(pygame.mouse.get_pos())
 
-P_ball= Piece(matrix[7][0],"white",Rook())
+P_ball= Piece(matrix[7][0],"white",Rook("white"))
+B_ball= Piece(matrix[7][1],"white",Bishop("white"))
+K_ball = Piece(matrix[7][2],"white",Knight("white"))
+Pwn_ball = Piece(matrix[6][3],"white",Pawn("white"))
 
 
 
@@ -159,16 +331,24 @@ while 1:
             if not(mouse.piece == "free"):
                 for line in matrix:
                     for square in line:
-                        if whiteSquare.get_rect(center=square.center).collidepoint(mouse.mouse_position) and square.piece=="free":
-                            if legal_move(square,mouse.piece.type.legal_sq(mouse.piece.square,matrix)):
+                        if whiteSquare.get_rect(center=square.center).collidepoint(mouse.mouse_position):
+                            if not(square.piece == "free"):
                                 mouse.piece.square.visibility = True
-                                mouse.piece.square.piece = "free"
-                                mouse.piece.square = square
-                                square.piece = mouse.piece
                                 mouse.piece = "free"
+                                break
                             else:
-                                mouse.piece.square.visibility = True
-                                mouse.piece = "free"
+                                if legal_move(square,mouse.piece.type.legal_sq(mouse.piece.square,matrix)):
+                                    mouse.piece.square.visibility = True
+                                    mouse.piece.square.piece = "free"
+                                    mouse.piece.square = square
+                                    square.piece = mouse.piece
+                                    mouse.piece = "free"
+                                    break
+                                else:
+                                    mouse.piece.square.visibility = True
+                                    mouse.piece = "free"
+                                    break
+
 
 
     for line in matrix:
