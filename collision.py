@@ -143,6 +143,143 @@ class Knight:
             if line > -1:
                 if matrix[line][collum].piece == "free":
                     self.moves.append(matrix[line][collum])
+                elif not(matrix[line][collum].piece.color == self.color):
+                    self.moves.append(matrix[line][collum])
+        return self.moves
+
+class King:
+    points = "kekw"
+    name = "king"
+    moves = []
+
+    def __init__(self,color):
+        self.color = color
+
+    def legal_sq(self,square,matrix):
+        self.moves = []
+        orig_line = square.line
+        orig_collum = square.collum
+
+        line = orig_line
+        collum = orig_collum+1
+        if (collum)<8:
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            elif not(matrix[line][collum].piece.color == self.color):
+                self.moves.append(matrix[line][collum])
+
+        collum = orig_collum-1
+        if (collum)>-1:
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            elif matrix[line][collum].piece.color == self.color:
+                self.moves.append(matrix[line][collum])
+
+        line = orig_line +1
+        if (line)<8:
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][orig_collum])
+            elif matrix[line][collum].piece.color == self.color:
+                self.moves.append(matrix[line][orig_collum])
+
+
+            collum = orig_collum+1
+            if (collum)<8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+                elif matrix[line][collum].piece.color == self.color:
+                    self.moves.append(matrix[line][collum])
+
+            collum = orig_collum-1
+            if (collum)>-1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+                elif matrix[line][collum].piece.color == self.color:
+                    self.moves.append(matrix[line][collum])
+
+
+        line = orig_line -1
+        if (line)<8:
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][orig_collum])
+            elif matrix[line][collum].piece.color == self.color:
+                self.moves.append(matrix[line][orig_collum])
+
+
+            collum = orig_collum+1
+            if (collum)<8:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+                elif matrix[line][collum].piece.color == self.color:
+                    self.moves.append(matrix[line][collum])
+
+            collum = orig_collum-1
+            if (collum)>-1:
+                if matrix[line][collum].piece == "free":
+                    self.moves.append(matrix[line][collum])
+                elif matrix[line][collum].piece.color == self.color:
+                    self.moves.append(matrix[line][collum])
+
+
+        return self.moves
+
+class Queen:
+    points = 9
+    name = "queen"
+    moves = []
+
+    def __init__(self,color):
+        self.color = color
+
+    def legal_sq(self,square,matrix):
+        self.moves = []
+        orig_line = square.line
+        orig_collum = square.collum
+        for line in range(orig_line+1,8):
+            if matrix[line][orig_collum].piece == "free":
+                self.moves.append(matrix[line][orig_collum])
+            else:
+                break
+        for line in range(orig_line-1,-1,-1):
+            if matrix[line][orig_collum].piece == "free":
+                self.moves.append(matrix[line][orig_collum])
+            else:
+                break
+        for collum in range(orig_collum+1,8):
+            if matrix[orig_line][collum].piece == "free":
+                self.moves.append(matrix[orig_line][collum])
+            else:
+                break
+
+        for collum in range(orig_collum-1,-1,-1):
+            if matrix[orig_line][collum].piece == "free":
+                self.moves.append(matrix[orig_line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line+1,8),range(orig_collum+1,8)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line+1,8),range(orig_collum-1,-1,-1)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line-1,-1,-1),range(orig_collum+1,8)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
+
+        for line,collum in zip(range(orig_line-1,-1,-1),range(orig_collum-1,-1,-1)):
+            if matrix[line][collum].piece == "free":
+                self.moves.append(matrix[line][collum])
+            else:
+                break
         return self.moves
 
 
@@ -299,6 +436,8 @@ P_ball= Piece(matrix[7][0],"white",Rook("white"))
 B_ball= Piece(matrix[7][1],"white",Bishop("white"))
 K_ball = Piece(matrix[7][2],"white",Knight("white"))
 Pwn_ball = Piece(matrix[6][3],"white",Pawn("white"))
+Q_ball = Piece(matrix[7][3],"white",Queen("white"))
+K_ball = Piece(matrix[7][4],"white",King("white"))
 
 
 
